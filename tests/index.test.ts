@@ -1,5 +1,6 @@
 import { rolldownBuild } from '@sxzz/test-utils'
 import MagicString from 'magic-string'
+import { MagicStringAST } from 'magic-string-ast'
 import { BindingMagicString, type Plugin } from 'rolldown'
 import { expect, test } from 'vitest'
 import {
@@ -85,4 +86,12 @@ test('withMagicString with new magic-string instance', async () => {
 test('not in rolldown', () => {
   const s = rolldownString('const a = 1;', '/a')
   expect(s).instanceOf(MagicString)
+})
+
+test('co-usage with magic-string-ast', () => {
+  const s = new BindingMagicString('const a = 1')
+  const ss = new MagicStringAST(s as any)
+  ss.overwriteNode({ start: 6, end: 7 }, 'b')
+  expect(s.toString()).toBe('const b = 1')
+  expect(ss.toString()).toBe('const b = 1')
 })
