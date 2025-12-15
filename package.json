@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@10.25.0",
-  "description": "undefined",
+  "description": "A compatibility layer for magic-string to work with Rolldown and other bundlers.",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/sxzz",
@@ -15,6 +15,12 @@
   "bugs": {
     "url": "https://github.com/sxzz/rolldown-string/issues"
   },
+  "keywords": [
+    "rolldown",
+    "unplugin",
+    "magic-string",
+    "rollup"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
