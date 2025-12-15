@@ -12,15 +12,15 @@ test('basic', async () => {
         name: 'test',
         resolveId: {
           filter: { id: /entry/ },
-          handler: (id) => id,
+          handler: () => '/entry',
         },
         load: {
-          filter: { id: '/entry' },
-          handler: () => 'export const answer = 42;',
+          filter: { id: /entry/ },
+          handler: () => 'export const answer = 42',
         },
         transform(code, id, meta) {
           m = rolldownString(code, id, meta)
-          expect(m.toString()).toBe('export const answer = 42;')
+          expect(m.toString()).toBe('export const answer = 42')
 
           m.replace('42', '43')
           return generateTransform(m, id)
