@@ -1,3 +1,4 @@
+import MagicString from 'magic-string'
 import { BindingMagicString, rolldown } from 'rolldown'
 import { expect, test } from 'vitest'
 import { generateTransform, rolldownString, type RolldownString } from '../src'
@@ -31,4 +32,9 @@ test('basic', async () => {
   const { output } = await bundle.generate()
   expect(m!).toBeInstanceOf(BindingMagicString)
   expect(output[0].code).include('43')
+})
+
+test('not in rolldown', () => {
+  const s = rolldownString('const a = 1;', '/a')
+  expect(s).instanceOf(MagicString)
 })

@@ -10,7 +10,7 @@ export type RolldownString = ObjectIntersection<MagicString, BindingMagicString>
 export function rolldownString(
   code: string,
   id: string,
-  meta: any,
+  meta?: any,
 ): RolldownString {
   return meta?.magicString || new MagicString(code, { filename: id })
 }
