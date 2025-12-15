@@ -18,6 +18,9 @@ importers:
       '@sxzz/prettier-config':
         specifier: ^2.2.6
         version: 2.2.6
+      '@sxzz/test-utils':
+        specifier: ^0.5.14
+        version: 0.5.14(esbuild@0.25.12)(rolldown@1.0.0-beta.54)(rollup@4.53.3)(typescript@5.9.3)(vitest@4.0.15(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))
       '@types/node':
         specifier: ^24.10.4
         version: 24.10.4
@@ -758,6 +761,34 @@ packages:
 
   '@sxzz/prettier-config@2.2.6':
     resolution: {integrity: sha512-YUTa7I6l/gcy2wDHd6jDyE4bwGOPvqyDc5fWGXLGPisjfeYbCBTi5Cms+Fl7MXKq+VPHoTdD587HjrMGb3J0WA==}
+
+  '@sxzz/test-utils@0.5.14':
+    resolution: {integrity: sha512-nT1nCaqorFD7QRSk1/oOOnqVGFQpxHDq2bvcBjdgHUJPHcQ0sT4uPJDgn+JP21w7oQXj/nMsIvNchEKa/LP//A==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@ts-macro/language-plugin': '*'
+      '@volar/typescript': '*'
+      '@vue/language-core': ^3.1.0
+      esbuild: '>=0.20.0'
+      rolldown: '*'
+      rollup: ^4.1.0
+      typescript: ^5.8.0
+      vitest: ^2.0.0 || ^3.0.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@ts-macro/language-plugin':
+        optional: true
+      '@volar/typescript':
+        optional: true
+      '@vue/language-core':
+        optional: true
+      esbuild:
+        optional: true
+      rolldown:
+        optional: true
+      rollup:
+        optional: true
+      typescript:
+        optional: true
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -2079,6 +2110,10 @@ packages:
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
 
+  unplugin-utils@0.3.1:
+    resolution: {integrity: sha512-5lWVjgi6vuHhJ526bI4nlCOmkCIF3nnfXkCMDeMJrtdvxTs6ZFCM8oNufGTsDbKv/tJ/xj8RpvXjRuPBZJuJog==}
+    engines: {node: '>=20.19.0'}
+
   unrun@0.2.19:
     resolution: {integrity: sha512-DbwbJ9BvPEb3BeZnIpP9S5tGLO/JIgPQ3JrpMRFIfZMZfMG19f26OlLbC2ml8RRdrI2ZA7z2t+at5tsIHbh6Qw==}
     engines: {node: '>=20.19.0'}
@@ -2718,6 +2753,17 @@ snapshots:
   '@sxzz/prettier-config@2.2.6':
     dependencies:
       '@prettier/plugin-oxc': 0.1.2
+
+  '@sxzz/test-utils@0.5.14(esbuild@0.25.12)(rolldown@1.0.0-beta.54)(rollup@4.53.3)(typescript@5.9.3)(vitest@4.0.15(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))':
+    dependencies:
+      tinyglobby: 0.2.15
+      unplugin-utils: 0.3.1
+      vitest: 4.0.15(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2)
+    optionalDependencies:
+      esbuild: 0.25.12
+      rolldown: 1.0.0-beta.54
+      rollup: 4.53.3
+      typescript: 5.9.3
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -4315,6 +4361,11 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.0.2
+
+  unplugin-utils@0.3.1:
+    dependencies:
+      pathe: 2.0.3
+      picomatch: 4.0.3
 
   unrun@0.2.19(synckit@0.11.11):
     dependencies:

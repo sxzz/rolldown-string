@@ -19,6 +19,25 @@ npm i rolldown-string
 
 ## Usage
 
+### `withMagicString`
+
+Higher-order function to create a `transform` hook with `magic-string` support.
+
+```ts
+import { withMagicString } from 'rolldown-string'
+
+const plugin = {
+  transform: withMagicString((s, id) => {
+    // your transformations...
+    s.replace('42', '43')
+  }),
+}
+```
+
+### `rolldownString` / `generateTransform`
+
+More flexible way to use `rolldown-string`.
+
 ```ts
 import { generateTransform, rolldownString } from 'rolldown-string'
 
@@ -26,7 +45,8 @@ const yourPlugin = {
   transform(code, id, meta) {
     const s = rolldownString(code, id, meta)
 
-    // ... your transformations
+    // your transformations...
+    s.replace('42', '43')
 
     return generateTransform(s, id)
   },

@@ -54,6 +54,7 @@
   "devDependencies": {
     "@sxzz/eslint-config": "^7.4.3",
     "@sxzz/prettier-config": "^2.2.6",
+    "@sxzz/test-utils": "^0.5.14",
     "@types/node": "^24.10.4",
     "@typescript/native-preview": "7.0.0-dev.20251214.1",
     "bumpp": "^10.3.2",

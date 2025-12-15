@@ -15,6 +15,33 @@ export function rolldownString(
   return meta?.magicString || new MagicString(code, { filename: id })
 }
 
+type Awaitable<T> = T | Promise<T>
+
+export type Handler<Meta> = (
+  s: RolldownString,
+  id: string,
+  meta: Meta,
+) => Awaitable<
+  MagicString | BindingMagicString | RolldownString | void | undefined
+>
+
+export function withMagicString<Meta>(
+  handler: Handler<Meta>,
+): (
+  code: string,
+  id: string,
+  meta: Meta,
+) => Awaitable<CodeTransform | undefined> {
+  return (code: string, id: string, meta: Meta) => {
+    const s = rolldownString(code, id, meta)
+    const res = handler(s, id, meta)
+    if (res instanceof Promise) {
+      return res.then((res) => generateTransform(res || s, id))
+    }
+    return generateTransform(res || s, id)
+  }
+}
+
 /**
  * The result of code transformation.
  */

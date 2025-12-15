@@ -1,37 +1,64 @@
+import { rolldownBuild } from '@sxzz/test-utils'
 import MagicString from 'magic-string'
-import { BindingMagicString, rolldown } from 'rolldown'
+import { BindingMagicString, type Plugin } from 'rolldown'
 import { expect, test } from 'vitest'
-import { generateTransform, rolldownString, type RolldownString } from '../src'
+import {
+  generateTransform,
+  rolldownString,
+  withMagicString,
+  type RolldownString,
+} from '../src'
 
-test('basic', async () => {
+const entry: Plugin = {
+  name: 'entry',
+  resolveId: {
+    filter: { id: /entry/ },
+    handler: () => '/entry',
+  },
+  load: {
+    filter: { id: /entry/ },
+    handler: () => 'export const answer = 42',
+  },
+}
+
+test('rolldownString + generateTransform', async () => {
   let s: RolldownString
-  const bundle = await rolldown({
-    input: '/entry',
-    plugins: [
-      {
-        name: 'test',
-        resolveId: {
-          filter: { id: /entry/ },
-          handler: () => '/entry',
-        },
-        load: {
-          filter: { id: /entry/ },
-          handler: () => 'export const answer = 42',
-        },
-        transform(code, id, meta) {
-          s = rolldownString(code, id, meta)
-          expect(s.toString()).toBe('export const answer = 42')
+  const plugin: Plugin = {
+    name: 'test',
+    transform(code, id, meta) {
+      s = rolldownString(code, id, meta)
+      expect(s.toString()).toBe('export const answer = 42')
 
-          s.replace('42', '43')
-          return generateTransform(s, id)
-        },
-      },
-    ],
-  })
+      s.replace('42', '43')
+      return generateTransform(s, id)
+    },
+  }
+  const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
 
-  const { output } = await bundle.generate()
   expect(s!).toBeInstanceOf(BindingMagicString)
-  expect(output[0].code).include('43')
+  expect(snapshot).includes('43')
+})
+
+test('withMagicString', async () => {
+  const plugin: Plugin = {
+    name: 'test',
+    transform: withMagicString((s, id, meta) => {
+      s.replace('42', '43')
+      expect(id).includes('entry')
+      expect(meta).a('object')
+    }),
+  }
+  const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
+  expect(snapshot).include('43')
+})
+
+test('withMagicString with new magic-string instance', async () => {
+  const plugin: Plugin = {
+    name: 'test',
+    transform: withMagicString(() => new BindingMagicString('console.log()')),
+  }
+  const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
+  expect(snapshot).includes('console.log')
 })
 
 test('not in rolldown', () => {
