@@ -22,22 +22,25 @@ export type HandlerReturn =
   | RolldownString
   | void
   | undefined
-export type Handler<Meta> = (
+export type Handler<Args extends any[], This> = (
+  this: This,
   s: RolldownString,
   id: string,
-  meta: Meta,
+  ...args: Args
 ) => Awaitable<HandlerReturn>
 
-export function withMagicString<Meta>(
-  handler: Handler<Meta>,
+export function withMagicString<Args extends any[], This>(
+  handler: Handler<Args, This>,
 ): (
+  this: This,
   code: string,
   id: string,
-  meta: Meta,
+  ...args: Args
 ) => Awaitable<CodeTransform | undefined> {
-  return (code: string, id: string, meta: Meta) => {
+  return function (this: This, code: string, id: string, ...args: Args) {
+    const meta = args.at(-1)
     const s = rolldownString(code, id, meta)
-    const res = handler(s, id, meta)
+    const res = handler.call(this, s, id, ...args)
     const callback = (res: HandlerReturn) => {
       if (typeof res === 'string') {
         return { code: res }
