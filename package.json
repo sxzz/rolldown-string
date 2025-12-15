@@ -1,7 +1,7 @@
 {
   "name": "rolldown-string",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@10.25.0",
   "description": "undefined",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
