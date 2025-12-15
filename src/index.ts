@@ -4,7 +4,6 @@ import type { BindingMagicString } from 'rolldown'
 type ObjectIntersection<A, B> = {
   [K in keyof A & keyof B]: A[K]
 }
-
 export type RolldownString = ObjectIntersection<MagicString, BindingMagicString>
 
 export function rolldownString(
@@ -16,14 +15,18 @@ export function rolldownString(
 }
 
 type Awaitable<T> = T | Promise<T>
-
+export type HandlerReturn =
+  | string
+  | MagicString
+  | BindingMagicString
+  | RolldownString
+  | void
+  | undefined
 export type Handler<Meta> = (
   s: RolldownString,
   id: string,
   meta: Meta,
-) => Awaitable<
-  MagicString | BindingMagicString | RolldownString | void | undefined
->
+) => Awaitable<HandlerReturn>
 
 export function withMagicString<Meta>(
   handler: Handler<Meta>,
@@ -35,10 +38,17 @@ export function withMagicString<Meta>(
   return (code: string, id: string, meta: Meta) => {
     const s = rolldownString(code, id, meta)
     const res = handler(s, id, meta)
-    if (res instanceof Promise) {
-      return res.then((res) => generateTransform(res || s, id))
+    const callback = (res: HandlerReturn) => {
+      if (typeof res === 'string') {
+        return { code: res }
+      }
+      return generateTransform(res || s, id, !!res)
     }
-    return generateTransform(res || s, id)
+
+    if (res instanceof Promise) {
+      return res.then(callback)
+    }
+    return callback(res)
   }
 }
 
@@ -56,12 +66,13 @@ export interface CodeTransform {
 export function generateTransform(
   s: MagicString | BindingMagicString | RolldownString | undefined,
   id: string,
+  force?: boolean,
 ): CodeTransform | undefined {
   if (s?.constructor.name === 'BindingMagicString') {
     return { code: s }
   }
 
-  if (s?.hasChanged()) {
+  if (s && (force || s.hasChanged())) {
     return {
       code: s.toString(),
       get map() {

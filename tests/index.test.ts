@@ -49,7 +49,28 @@ test('withMagicString', async () => {
     }),
   }
   const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
-  expect(snapshot).include('43')
+  expect(snapshot).includes('43')
+})
+
+test('withMagicString with returning Promise', async () => {
+  const plugin: Plugin = {
+    name: 'test',
+    transform: withMagicString(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+      return new MagicString('console.log(43)')
+    }),
+  }
+  const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
+  expect(snapshot).includes('console.log(43)')
+})
+
+test('withMagicString with returning string', async () => {
+  const plugin: Plugin = {
+    name: 'test',
+    transform: withMagicString(() => Promise.resolve('console.log(43)')),
+  }
+  const { snapshot } = await rolldownBuild('/entry', [entry, plugin])
+  expect(snapshot).includes('console.log(43)')
 })
 
 test('withMagicString with new magic-string instance', async () => {
