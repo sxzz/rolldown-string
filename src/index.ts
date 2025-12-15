@@ -1,5 +1,5 @@
 import MagicString from 'magic-string'
-import { BindingMagicString } from 'rolldown'
+import type { BindingMagicString } from 'rolldown'
 
 type ObjectIntersection<A, B> = {
   [K in keyof A & keyof B]: A[K]
@@ -30,7 +30,7 @@ export function generateTransform(
   s: MagicString | BindingMagicString | RolldownString | undefined,
   id: string,
 ): CodeTransform | undefined {
-  if (s instanceof BindingMagicString) {
+  if (s?.constructor.name === 'BindingMagicString') {
     return { code: s }
   }
 
