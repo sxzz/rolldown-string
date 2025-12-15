@@ -4,12 +4,33 @@
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![Unit Test][unit-test-src]][unit-test-href]
 
-undefined
+A compatibility layer for [magic-string](https://github.com/Rich-Harris/magic-string) to work with Rolldown and other bundlers.
+
+- In Rolldown, [native `magic-string`](https://rolldown.rs/in-depth/native-magic-string) is used to optimize performance.
+- If native support is unavailable, it gracefully falls back to the JavaScript implementation of `magic-string`.
+
+Recommended for use with [unplugin](https://github.com/unjs/unplugin).
 
 ## Install
 
 ```bash
 npm i rolldown-string
+```
+
+## Usage
+
+```ts
+import { generateTransform, rolldownString } from 'rolldown-string'
+
+const yourPlugin = {
+  transform(code, id, meta) {
+    const s = rolldownString(code, id, meta)
+
+    // ... your transformations
+
+    return generateTransform(s, id)
+  },
+}
 ```
 
 ## Sponsors

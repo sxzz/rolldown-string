@@ -4,7 +4,7 @@ import { expect, test } from 'vitest'
 import { generateTransform, rolldownString, type RolldownString } from '../src'
 
 test('basic', async () => {
-  let m: RolldownString
+  let s: RolldownString
   const bundle = await rolldown({
     input: '/entry',
     plugins: [
@@ -19,18 +19,18 @@ test('basic', async () => {
           handler: () => 'export const answer = 42',
         },
         transform(code, id, meta) {
-          m = rolldownString(code, id, meta)
-          expect(m.toString()).toBe('export const answer = 42')
+          s = rolldownString(code, id, meta)
+          expect(s.toString()).toBe('export const answer = 42')
 
-          m.replace('42', '43')
-          return generateTransform(m, id)
+          s.replace('42', '43')
+          return generateTransform(s, id)
         },
       },
     ],
   })
 
   const { output } = await bundle.generate()
-  expect(m!).toBeInstanceOf(BindingMagicString)
+  expect(s!).toBeInstanceOf(BindingMagicString)
   expect(output[0].code).include('43')
 })
 
