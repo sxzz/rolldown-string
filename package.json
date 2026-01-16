@@ -2,7 +2,7 @@
   "name": "rolldown-string",
   "type": "module",
   "version": "0.2.1",
-  "packageManager": "pnpm@10.26.0",
+  "packageManager": "pnpm@10.28.0",
   "description": "A compatibility layer for magic-string to work with Rolldown and other bundlers.",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
@@ -52,19 +52,19 @@
     "magic-string": "^0.30.21"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^7.4.3",
+    "@sxzz/eslint-config": "^7.4.5",
     "@sxzz/prettier-config": "^2.2.6",
-    "@sxzz/test-utils": "^0.5.14",
-    "@types/node": "^25.0.2",
-    "@typescript/native-preview": "7.0.0-dev.20251215.1",
-    "bumpp": "^10.3.2",
+    "@sxzz/test-utils": "^0.5.15",
+    "@types/node": "^25.0.9",
+    "@typescript/native-preview": "7.0.0-dev.20260116.1",
+    "bumpp": "^10.4.0",
     "eslint": "^9.39.2",
     "magic-string-ast": "^1.0.3",
-    "prettier": "^3.7.4",
-    "rolldown": "1.0.0-beta.54",
-    "tsdown": "^0.18.0",
+    "prettier": "^3.8.0",
+    "rolldown": "1.0.0-beta.60",
+    "tsdown": "^0.19.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.17"
   },
   "prettier": "@sxzz/prettier-config"
 }
