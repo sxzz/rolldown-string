@@ -56,7 +56,7 @@
     "@sxzz/prettier-config": "^2.2.6",
     "@sxzz/test-utils": "^0.5.15",
     "@types/node": "^25.0.9",
-    "@typescript/native-preview": "7.0.0-dev.20260116.1",
+    "@typescript/native-preview": "7.0.0-dev.20260118.1",
     "bumpp": "^10.4.0",
     "eslint": "^9.39.2",
     "magic-string-ast": "^1.0.3",
