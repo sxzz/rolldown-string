@@ -1,10 +1,13 @@
 import MagicString from 'magic-string'
-import type { BindingMagicString } from 'rolldown'
+import type { RolldownMagicString } from 'rolldown'
 
 type ObjectIntersection<A, B> = {
   [K in keyof A & keyof B]: A[K]
 }
-export type RolldownString = ObjectIntersection<MagicString, BindingMagicString>
+export type RolldownString = ObjectIntersection<
+  MagicString,
+  RolldownMagicString
+>
 
 export function rolldownString(
   code: string,
@@ -18,7 +21,7 @@ type Awaitable<T> = T | Promise<T>
 export type HandlerReturn =
   | string
   | MagicString
-  | BindingMagicString
+  | RolldownMagicString
   | RolldownString
   | void
   | undefined
@@ -67,11 +70,15 @@ export interface CodeTransform {
  * Generate an object of code and source map from MagicString.
  */
 export function generateTransform(
-  s: MagicString | BindingMagicString | RolldownString | undefined,
+  s: MagicString | RolldownMagicString | RolldownString | undefined,
   id: string,
   force?: boolean,
 ): CodeTransform | undefined {
-  if (s?.constructor.name === 'BindingMagicString') {
+  if (
+    s &&
+    (s.constructor.name === 'BindingMagicString' ||
+      ('isRolldownMagicString' in s && s.isRolldownMagicString))
+  ) {
     return { code: s }
   }
 

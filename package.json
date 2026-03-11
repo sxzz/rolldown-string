@@ -46,6 +46,14 @@
     "release": "bumpp",
     "prepublishOnly": "pnpm run build"
   },
+  "peerDependencies": {
+    "rolldown": "*"
+  },
+  "peerDependenciesMeta": {
+    "rolldown": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "magic-string": "^0.30.21"
   },
