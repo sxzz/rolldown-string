@@ -2,7 +2,7 @@
   "name": "rolldown-string",
   "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@11.0.9",
   "description": "A compatibility layer for magic-string to work with Rolldown and other bundlers.",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
