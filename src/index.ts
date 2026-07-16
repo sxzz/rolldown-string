@@ -1,4 +1,4 @@
-import MagicString from 'magic-string'
+import { MagicString } from 'magic-string'
 import type { RolldownMagicString } from 'rolldown'
 
 type ObjectIntersection<A, B> = {
