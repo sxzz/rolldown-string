@@ -27,6 +27,7 @@
     "magic-string",
     "rollup"
   ],
+  "sideEffects": false,
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
