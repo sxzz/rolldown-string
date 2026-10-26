@@ -5,7 +5,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.14.0",
+      "version": "12.15.0",
       "onFail": "download"
     }
   },
@@ -74,7 +74,7 @@
     "eslint": "^10.7.0",
     "magic-string-ast": "^2.1.1",
     "prettier": "^3.9.5",
-    "rolldown": "1.2.14",
+    "rolldown": "1.2.15",
     "tsdown": "^0.23.0",
     "tsdown-preset-sxzz": "^0.7.0",
     "typescript": "^6.0.3",
